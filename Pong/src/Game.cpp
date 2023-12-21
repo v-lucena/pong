@@ -13,11 +13,11 @@ void Game::Init()
 {
 }
 
-void Game::ProcessInput()
+void Game::ProcessInput(float deltaTime)
 {
 }
 
-void Game::Update()
+void Game::Update(float deltaTime)
 {
 }
 

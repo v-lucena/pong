@@ -52,16 +52,24 @@ int main(void)
 
     Pong.Init();
 
+    float deltaTime = 0.0f;
+    float lastFrame = 0.0f;
+
     /* Loop until the user closes the window */
     while (!glfwWindowShouldClose(window))
     {   
+        float currentFrame = glfwGetTime();
+        deltaTime = currentFrame - lastFrame;
+        lastFrame = currentFrame;
+
         /* Poll for and process events */
         glfwPollEvents();
 
-        Pong.ProcessInput();
-        Pong.Update();        
+        Pong.ProcessInput(deltaTime);
+        Pong.Update(deltaTime);        
         
         /* Render here */
+        glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
 
         Pong.Render();

@@ -21,8 +21,8 @@ public:
 	~Game();
 
 	void Init();
-	void ProcessInput();
-	void Update();
+	void ProcessInput(float deltaTime);
+	void Update(float deltaTime);
 	void Render();
 
 	void ResetPlayers();
