@@ -155,12 +155,22 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="src\external\glad.c" />
+    <ClCompile Include="src\external\glad\glad.c" />
+    <ClCompile Include="src\external\stb_image\stb_image.cpp" />
     <ClCompile Include="src\Game.cpp" />
     <ClCompile Include="src\Main.cpp" />
+    <ClCompile Include="src\ResourceManager.cpp" />
+    <ClCompile Include="src\Shader.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\external\stb_image\stb_image.h" />
     <ClInclude Include="src\Game.h" />
+    <ClInclude Include="src\ResourceManager.h" />
+    <ClInclude Include="src\Shader.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="res\shaders\sprite.frag" />
+    <None Include="res\shaders\sprite.vs" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
