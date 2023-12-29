@@ -10,9 +10,9 @@ void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 void key_callback(GLFWwindow* window, int key, int scancode, int action, int mode);
 
 const unsigned int SCREEN_WIDTH = 800;
-const unsigned int SCREE_HEIGHT = 600;
+const unsigned int SCREEN_HEIGHT = 600;
 
-Game Pong(SCREEN_WIDTH, SCREE_HEIGHT);
+Game Pong(SCREEN_WIDTH, SCREEN_HEIGHT);
 
 int main(void)
 {
@@ -30,7 +30,7 @@ int main(void)
     glfwWindowHint(GLFW_RESIZABLE, false);
 
     /* Create a windowed mode window and its OpenGL context */
-    window = glfwCreateWindow(SCREEN_WIDTH, SCREE_HEIGHT, "Pong", NULL, NULL);
+    window = glfwCreateWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "Pong", NULL, NULL);
     if (!window)
     {
         glfwTerminate();
@@ -49,6 +49,12 @@ int main(void)
 
     glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
     glfwSetKeyCallback(window, key_callback);
+
+    // OpenGL configuration
+    // --------------------
+    glViewport(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+    glEnable(GL_BLEND);
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
     Pong.Init();
 

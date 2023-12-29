@@ -1,10 +1,22 @@
 #pragma once
 
+#include <glad/glad.h>
+#include <GLFW/glfw3.h>
+
+#include "GameObject.h"
+
 enum GameMode {
 	GAME_ACTIVE,
 	GAME_MENU,
 	GAME_OVER
 };
+
+const glm::vec2 PLAYER_SIZE(20.0f, 100.0f);
+
+const float PLAYER_VELOCITY(500.0f);
+
+const float STAGE_OFFSET = 50.0f;
+
 
 class Game
 {
