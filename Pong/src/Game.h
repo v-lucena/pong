@@ -2,8 +2,9 @@
 
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
+#include <glm\glm.hpp>
 
-#include "GameObject.h"
+#include "BallObject.h"
 
 enum GameMode {
 	GAME_ACTIVE,
@@ -15,7 +16,13 @@ const glm::vec2 PLAYER_SIZE(20.0f, 100.0f);
 
 const float PLAYER_VELOCITY(500.0f);
 
+const glm::vec2 INITIAL_BALL_VELOCITY = glm::vec2(350.0f, 100.0f);
+
+const float BALL_RADIUS = 6.25f;
+
 const float STAGE_OFFSET = 50.0f;
+
+const float BALL_OFFSET = 5.0f;
 
 
 class Game
