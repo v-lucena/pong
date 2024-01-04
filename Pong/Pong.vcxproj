@@ -155,6 +155,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\BallObject.cpp" />
     <ClCompile Include="src\external\glad\glad.c" />
     <ClCompile Include="src\external\stb_image\stb_image.cpp" />
     <ClCompile Include="src\Game.cpp" />
@@ -165,6 +166,7 @@
     <ClCompile Include="src\SpriteRenderer.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\BallObject.h" />
     <ClInclude Include="src\external\stb_image\stb_image.h" />
     <ClInclude Include="src\Game.h" />
     <ClInclude Include="src\GameObject.h" />
