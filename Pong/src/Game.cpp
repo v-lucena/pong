@@ -129,6 +129,19 @@ void Game::ResetPlayers()
     Ball->Reset(Player1->Position + glm::vec2(PLAYER_SIZE.x + BALL_OFFSET, PLAYER_SIZE.y / 2.0f - BALL_RADIUS), INITIAL_BALL_VELOCITY);
 }
 
+Collision CheckCollisions(BallObject& one, GameObject& two);
+Direction VectorDirection(glm::vec2 closest);
+
 void Game::DoCollisions()
 {
+}
+
+Collision CheckCollisions(BallObject& one, GameObject& two)
+{
+    return std::make_tuple(false, UP, glm::vec2(1.0f));
+}
+
+Direction VectorDirection(glm::vec2 closest)
+{
+    return UP;
 }

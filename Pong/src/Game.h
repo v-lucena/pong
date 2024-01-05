@@ -6,11 +6,22 @@
 
 #include "BallObject.h"
 
+#include <tuple>
+
 enum GameMode {
 	GAME_ACTIVE,
 	GAME_MENU,
 	GAME_OVER
 };
+
+enum Direction {
+	UP,
+	RIGHT,
+	DOWN,
+	LEFT
+};
+
+typedef std::tuple<bool, Direction, glm::vec2> Collision;
 
 const glm::vec2 PLAYER_SIZE(20.0f, 100.0f);
 
