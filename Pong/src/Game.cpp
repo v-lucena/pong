@@ -102,6 +102,8 @@ void Game::Update(float deltaTime)
 {
     Ball->Move(deltaTime, this->Height);
 
+    this->DoCollisions();
+
     if (Ball->Position.x >= this->Width)
         this->ResetPlayers();
 }
@@ -134,14 +136,77 @@ Direction VectorDirection(glm::vec2 closest);
 
 void Game::DoCollisions()
 {
+    Collision collisionP2 = CheckCollisions(*Ball, *Player2);
+    if (!Ball->Stuck && std::get<0>(collisionP2))
+    {
+        float centerBoard = Player2->Position.y + Player2->Size.y / 2.0f;
+        float distance = (Ball->Position.y + Ball->Radius) - centerBoard;
+        float percentage = distance / (Player2->Size.y / 2.0f);
+
+        float strength = 2.0f;
+        glm::vec2 oldVelocity = Ball->Velocity;
+        Ball->Velocity.y = INITIAL_BALL_VELOCITY.y * percentage * strength;
+
+        Ball->Velocity = glm::normalize(Ball->Velocity) * glm::length(oldVelocity);
+
+        Ball->Velocity.x = -1.0f * abs(Ball->Velocity.x);
+    }
+
+    Collision collisionP1 = CheckCollisions(*Ball, *Player1);
+    if (!Ball->Stuck && std::get<0>(collisionP1))
+    {
+        float centerBoard = Player1->Position.y + Player1->Size.y / 2.0f;
+        float distance = (Ball->Position.y + Ball->Radius) - centerBoard;
+        float percentage = distance / (Player1->Size.y / 2.0f);
+
+        float strength = 2.0f;
+        glm::vec2 oldVelocity = Ball->Velocity;
+        Ball->Velocity.y = INITIAL_BALL_VELOCITY.y * percentage * strength;
+
+        Ball->Velocity = glm::normalize(Ball->Velocity) * glm::length(oldVelocity);
+
+        Ball->Velocity.x = 1.0f * abs(Ball->Velocity.x);
+    }
 }
 
 Collision CheckCollisions(BallObject& one, GameObject& two)
 {
-    return std::make_tuple(false, UP, glm::vec2(1.0f));
+    glm::vec2 center(one.Position + one.Radius);
+
+    glm::vec2 aabb_half_extents(two.Size.x / 2.0f, two.Size.y / 2.0f);
+    glm::vec2 aabb_center(two.Position.x + aabb_half_extents.x, two.Position.y + aabb_half_extents.y);
+
+    glm::vec2 difference = center - aabb_center;
+    glm::vec2 clamped = glm::clamp(difference, -aabb_half_extents, aabb_half_extents);
+
+    glm::vec2 closest = aabb_center + clamped;
+
+    difference = closest - center;
+
+    if (glm::length(difference) < one.Radius)
+        return std::make_tuple(true, VectorDirection(difference), difference);
+    else
+        return std::make_tuple(false, UP, glm::vec2(0.0f));
 }
 
 Direction VectorDirection(glm::vec2 closest)
 {
-    return UP;
+    glm::vec2 compass[] = {
+        glm::vec2(0.0f, 1.0f),
+        glm::vec2(1.0f, 0.0f),
+        glm::vec2(0.0f, -1.0f),
+        glm::vec2(-1.0f, 0.0f)
+    };
+    float max = 0.0f;
+    unsigned int best_match = -1;
+    for (unsigned int i = 0; i < 4; i++)
+    {
+        float dot_product = glm::dot(glm::normalize(closest), compass[i]);
+        if (dot_product > max)
+        {
+            max = dot_product;
+            best_match = i;
+        }
+    }
+    return (Direction)best_match;
 }
