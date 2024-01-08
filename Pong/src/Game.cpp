@@ -8,6 +8,8 @@ GameObject* Player1;
 GameObject* Player2;
 BallObject* Ball;
 
+bool pointWon;
+
 Game::Game(const unsigned int width, const unsigned int height)
 	: Mode(GAME_ACTIVE), Width(width), Height(height)
 {
@@ -48,6 +50,8 @@ void Game::Init()
 	Player1 = new GameObject(player1Pos, PLAYER_SIZE);
     Player2 = new GameObject(player2Pos, PLAYER_SIZE);
     Ball = new BallObject(ballPos, BALL_RADIUS, INITIAL_BALL_VELOCITY);
+
+    pointWon = true;
 }
 
 void Game::ProcessInput(float deltaTime)
@@ -105,7 +109,17 @@ void Game::Update(float deltaTime)
     this->DoCollisions();
 
     if (Ball->Position.x >= this->Width)
+    {
+        pointWon = true;
         this->ResetPlayers();
+    }
+
+    if (Ball->Position.x <= 0.0f)
+    {
+        pointWon = false;
+        this->ResetPlayers();
+    }
+        
 }
 
 void Game::Render()
@@ -128,7 +142,11 @@ void Game::ResetPlayers()
         this->Width - STAGE_OFFSET,
         this->Height / 2.0f - PLAYER_SIZE.y
     );
-    Ball->Reset(Player1->Position + glm::vec2(PLAYER_SIZE.x + BALL_OFFSET, PLAYER_SIZE.y / 2.0f - BALL_RADIUS), INITIAL_BALL_VELOCITY);
+
+    if (pointWon)
+        Ball->Reset(Player1->Position + glm::vec2(PLAYER_SIZE.x + BALL_OFFSET, PLAYER_SIZE.y / 2.0f - BALL_RADIUS), INITIAL_BALL_VELOCITY);
+    else
+        Ball->Reset(Player2->Position + glm::vec2(-PLAYER_SIZE.x - BALL_OFFSET, PLAYER_SIZE.y / 2.0f - BALL_RADIUS), glm::vec2(-INITIAL_BALL_VELOCITY.x, INITIAL_BALL_VELOCITY.y));
 }
 
 Collision CheckCollisions(BallObject& one, GameObject& two);
