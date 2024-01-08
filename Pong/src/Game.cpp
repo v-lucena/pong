@@ -8,6 +8,8 @@ GameObject* Player1;
 GameObject* Player2;
 BallObject* Ball;
 
+bool pointWon = true;
+
 Game::Game(const unsigned int width, const unsigned int height)
 	: Mode(GAME_ACTIVE), Width(width), Height(height)
 {
