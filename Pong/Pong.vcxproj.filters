@@ -42,6 +42,12 @@
     <ClCompile Include="src\BallObject.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\TextRenderer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Texture.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Game.h">
@@ -65,9 +71,17 @@
     <ClInclude Include="src\BallObject.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\TextRenderer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Texture.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="res\shaders\sprite.frag" />
     <None Include="res\shaders\sprite.vs" />
+    <None Include="res\shaders\text.frag" />
+    <None Include="res\shaders\text.vs" />
   </ItemGroup>
 </Project>

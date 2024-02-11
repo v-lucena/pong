@@ -18,7 +18,7 @@ class Texture
 
 	Texture();
 
-	Generate(unsigned int width, unsigned int height, unsigned char* data);
+	void Generate(unsigned int width, unsigned int height, unsigned char* data);
 
-	Bind() const;
+	void Bind() const;
 };
