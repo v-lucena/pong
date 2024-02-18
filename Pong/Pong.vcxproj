@@ -184,6 +184,9 @@
     <None Include="res\shaders\text.frag" />
     <None Include="res\shaders\text.vs" />
   </ItemGroup>
+  <ItemGroup>
+    <Font Include="res\fonts\OCRAEXT.TTF" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

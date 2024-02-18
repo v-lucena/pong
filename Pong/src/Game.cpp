@@ -1,12 +1,24 @@
 #include "Game.h"
 #include "ResourceManager.h"
 #include "SpriteRenderer.h"
+#include "TextRenderer.h"
+
+struct Score {
+    unsigned int Player1 = 0;
+    unsigned int Player2 = 0;
+};
+
+const float SCORE_WIDTH_OFFSET = 50.0f;
+const float SCORE_HEIGHT_OFFSET = 50.0f;
 
 
 SpriteRenderer* Renderer;
 GameObject* Player1;
 GameObject* Player2;
 BallObject* Ball;
+TextRenderer* Text;
+
+Score* GameScore = new Score();
 
 bool pointWon;
 
@@ -21,6 +33,8 @@ Game::~Game()
 	delete Player1;
 	delete Player2;
     delete Ball;
+    delete Text;
+    delete GameScore;
 }
 
 void Game::Init()
@@ -52,6 +66,9 @@ void Game::Init()
     Ball = new BallObject(ballPos, BALL_RADIUS, INITIAL_BALL_VELOCITY);
 
     pointWon = true;
+
+    Text = new TextRenderer(this->Width, this->Height);
+    Text->Load("res/fonts/ocraext.TTF", 24);
 }
 
 void Game::ProcessInput(float deltaTime)
@@ -111,12 +128,14 @@ void Game::Update(float deltaTime)
     if (Ball->Position.x >= this->Width)
     {
         pointWon = true;
+        GameScore->Player1++;
         this->ResetPlayers();
     }
 
     if (Ball->Position.x <= 0.0f)
     {
         pointWon = false;
+        GameScore->Player2++;
         this->ResetPlayers();
     }
         
@@ -129,6 +148,10 @@ void Game::Render()
         Player1->Draw(*Renderer);
         Player2->Draw(*Renderer);
         Ball->Draw(*Renderer);
+
+
+        std::string gameScore = std::to_string(GameScore->Player1) + " - " + std::to_string(GameScore->Player2);
+        Text->RenderText(gameScore, this->Width / 2 - SCORE_WIDTH_OFFSET, this->Height - SCORE_HEIGHT_OFFSET, 1.0f);
     }
 }
 

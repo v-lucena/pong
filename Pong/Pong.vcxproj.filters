@@ -84,4 +84,7 @@
     <None Include="res\shaders\text.frag" />
     <None Include="res\shaders\text.vs" />
   </ItemGroup>
+  <ItemGroup>
+    <Font Include="res\fonts\OCRAEXT.TTF" />
+  </ItemGroup>
 </Project>
